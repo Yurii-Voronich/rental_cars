@@ -29,3 +29,6 @@ button {
 img {
   display: block;
 }
+body {
+  font-family: var(--font-manrope), sans-serif;
+}
