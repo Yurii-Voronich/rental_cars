@@ -1,0 +1,34 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.carModelDescription {
+  position: relative;
+}
+.model {
+  color: #3470ff;
+}
+.price {
+  position: absolute;
+  right: 0;
+}
+.address {
+  display: flex;
+  align-items: center;
+}
+.address .part:last-child::after {
+  content: "|"; /* вертикальна рисочка */
+  color: #aaa; /* колір роздільника */
+  margin-right: 8px; /* відступи ліворуч і праворуч */
+}
+.address .part:not(:first-child)::before {
+  content: "|"; /* вертикальна рисочка */
+  color: #aaa; /* колір роздільника */
+  margin: 0 8px; /* відступи ліворуч і праворуч */
+}
+.type .part:not(:last-child)::after {
+  content: "|"; /* вертикальна рисочка */
+  color: #aaa; /* колір роздільника */
+  margin: 0 8px;
+}

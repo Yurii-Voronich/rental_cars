@@ -3,7 +3,10 @@
   align-items: center;
   justify-content: space-between;
   height: 68px;
+  border-bottom: 1px solid #f2f4f7;
+  background-color: #f2f4f7;
 }
+
 .navList {
   display: flex;
   gap: 32px;

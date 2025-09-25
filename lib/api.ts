@@ -1,9 +1,11 @@
 import axios from "axios";
 interface Params {
   brand: string;
-  price: string;
-  from: string;
-  to: string;
+  rentalPrice: string;
+  minMileage: string;
+  maxMileage: string;
+  page: number;
+  limit: string;
 }
 export interface Car {
   id: string;
@@ -23,7 +25,7 @@ export interface Car {
   rentalConditions: string[];
   mileage: number;
 }
-interface CarsResponse {
+export interface CarsResponse {
   cars: Car[];
   totalCars: number;
   page: number;

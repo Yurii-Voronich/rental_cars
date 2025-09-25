@@ -5,6 +5,7 @@ import Header from "@/components/Header/Header";
 
 import "modern-normalize";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 
 export const metadata: Metadata = {
   title: "Rental Car",
@@ -44,15 +45,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const queryClient = new QueryClient();
   return (
     <html lang="en">
-      <QueryClientProvider client={queryClient}>
+      <TanStackProvider>
         <body className={` ${manrope.variable} ${inter.variable}`}>
           <Header />
           {children}
         </body>
-      </QueryClientProvider>
+      </TanStackProvider>
     </html>
   );
 }

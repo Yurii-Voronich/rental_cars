@@ -1,59 +1,79 @@
 "use client";
-import css from "./FiltersField.module.css";
-import CustomBrandSelector from "../CustomBrandSelector/CustomBrandSelector";
 import { Field, Form, Formik } from "formik";
+import CustomBrandSelector from "../CustomBrandSelector/CustomBrandSelector";
 import CustomPriceSelector from "../CustomPriceSelector/CustomPriceSelector";
-import { fetchCars } from "@/lib/api";
+import css from "./FiltersField.module.css";
 interface FiltersFieldProps {
   brands: string[];
-}
-const FiltersField = ({ brands }: FiltersFieldProps) => {
-  interface formFieldValues {
+  onSubmit: (filters: {
     brand: string;
-    price: string;
-    from: string;
-    to: string;
-  }
-  const initialValues: formFieldValues = {
+    rentalPrice: string;
+    minMileage: string;
+    maxMileage: string;
+  }) => void;
+}
+interface InitialValues {
+  brand: string;
+  rentalPrice: string;
+  minMileage: string;
+  maxMileage: string;
+}
+const FiltersField = ({ brands, onSubmit }: FiltersFieldProps) => {
+  const initialValues = {
     brand: "",
-    price: "",
-    from: "",
-    to: "",
+    rentalPrice: "",
+    minMileage: "",
+    maxMileage: "",
   };
 
-  const handleSubmit = async (values: formFieldValues) => {
-    const cars = await fetchCars(values);
-    console.log(cars);
+  const handleSubmit = (values: InitialValues) => {
+    onSubmit(values);
   };
+
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      {({ isSubmitting }) => (
-        <Form className="space-y-4 p-4">
-          <div className={css.formWrapper}>
-            <CustomBrandSelector
-              name="brand"
-              brands={brands}
-              placeholder="Choose brand"
-            />
-            <CustomPriceSelector name="price" placeholder="Choose brand" />
+      <Form className={css.form}>
+        <div className={css.field}>
+          <label htmlFor="brand" className={css.label}>
+            {"Car brand"}
+          </label>
+
+          <CustomBrandSelector
+            name="brand"
+            brands={brands}
+            placeholder="Choose brand"
+          />
+        </div>
+        <div className={css.field}>
+          <label htmlFor="rentalPrice" className={css.label}>
+            {"Price/ 1 hour"}
+          </label>
+          <CustomPriceSelector name="rentalPrice" placeholder="Choose price" />
+        </div>
+        <div className={css.field}>
+          <label htmlFor="minMileage" className={css.label}>
+            {"Сar mileage / km"}
+          </label>
+          <div className={css.MilesFieldsWrapper}>
             <Field
               id="from"
-              type="text"
-              name="from"
-              // className={css.inputField}
+              name="minMileage"
               placeholder="From"
+              className={css.LeftMilesField}
             />
             <Field
-              id="from"
-              type="text"
-              name="to"
-              // className={css.inputField}
-              placeholder="From"
+              id="to"
+              name="maxMileage"
+              placeholder="To"
+              className={css.RightMilesField}
             />
-            <button type="submit">Submit</button>
           </div>
-        </Form>
-      )}
+        </div>
+
+        <button type="submit" className={css.button}>
+          Submit
+        </button>
+      </Form>
     </Formik>
   );
 };
