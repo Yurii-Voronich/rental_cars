@@ -5,9 +5,10 @@ import { usePathname } from "next/navigation";
 
 const Header = () => {
   const pathname = usePathname();
+
   return (
-    <div className={css.container}>
-      <header className={css.headerWrapper}>
+    <header className={css.headerWrapper}>
+      <div className={css.container}>
         <Link href={"/"}>
           <svg width={104} height={16}>
             <use href="/logo.svg#logo"></use>
@@ -30,8 +31,8 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-      </header>
-    </div>
+      </div>
+    </header>
   );
 };
 

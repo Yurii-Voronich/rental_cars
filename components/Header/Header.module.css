@@ -1,10 +1,20 @@
 .headerWrapper {
+  width: 100vw;
+  background-color: #f2f4f7;
+  border-bottom: 1px solid #f2f4f7;
+  display: flex;
+  justify-content: center;
+  height: 68px;
+}
+
+.container {
+  max-width: 1440px;
+  padding: 0 120px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
-  border-bottom: 1px solid #f2f4f7;
-  background-color: #f2f4f7;
+  box-sizing: border-box;
 }
 
 .navList {
@@ -15,12 +25,7 @@
   line-height: 1.25;
   text-align: center;
 }
-.container {
-  width: 1440px;
-  padding-left: 120px;
-  padding-right: 120px;
-  margin: 0 auto;
-}
+
 .active {
   color: #3470ff;
   font-weight: 600;
