@@ -1,23 +1,19 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { CarsResponse, Car, fetchBrands, fetchCars } from "@/lib/api";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { CarsResponse, fetchBrands, fetchCars } from "@/lib/api";
 import FiltersField from "@/components/FiltersField/FiltersField";
 import CarsGrid from "@/components/CarsGrid/CarsGrid";
 import css from "./catalog.module.css";
+import { useFiltersStore } from "@/store/filterStore";
+import { useCarStore } from "@/store/carStore";
 
 const CatalogPage = () => {
   const limit = "12";
-
-  const [filters, setFilters] = useState({
-    brand: "",
-    rentalPrice: "",
-    minMileage: "",
-    maxMileage: "",
-  });
+  const { allCars, addCars, setCars, clearCars } = useCarStore();
+  const { filters } = useFiltersStore();
   const [currentPage, setCurrentPage] = useState(1);
-  const [allCars, setAllCars] = useState<Car[]>([]);
 
   const brands = useQuery({
     queryKey: ["brands"],
@@ -27,29 +23,26 @@ const CatalogPage = () => {
   const { data, isLoading } = useQuery<CarsResponse, Error>({
     queryKey: ["cars", filters, currentPage],
     queryFn: () => fetchCars({ ...filters, page: currentPage, limit }),
+    placeholderData: keepPreviousData,
   });
 
   useEffect(() => {
     if (!data) return;
 
     if (currentPage === 1) {
-      setAllCars(data.cars);
+      setCars(data.cars);
     } else {
-      setAllCars((prev) => [...prev, ...data.cars]);
+      addCars(data.cars);
     }
-  }, [data, currentPage]);
+  }, [data, currentPage, setCars, addCars]);
 
-  const handleFiltersChange = (newFilters: typeof filters) => {
-    setFilters(newFilters);
+  useEffect(() => {
     setCurrentPage(1);
-    setAllCars([]);
-  };
-
+    clearCars();
+  }, [filters, clearCars]);
   return (
     <div className={css.container}>
-      {brands.data && (
-        <FiltersField brands={brands.data} onSubmit={handleFiltersChange} />
-      )}
+      {brands.data && <FiltersField brands={brands.data} />}
 
       {allCars.length > 0 && <CarsGrid data={allCars} />}
 
@@ -59,7 +52,7 @@ const CatalogPage = () => {
           onClick={() => setCurrentPage((prev) => prev + 1)}
           disabled={isLoading}
         >
-          {isLoading ? "Loading..." : "Show More"}
+          {isLoading ? "Loading..." : "Load More"}
         </button>
       )}
     </div>

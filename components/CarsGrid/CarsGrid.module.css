@@ -3,8 +3,25 @@
   flex-wrap: wrap;
   gap: 32px;
 }
-.carModelDescription {
+.listItem {
+  width: 276px;
   position: relative;
+}
+.image {
+  border-radius: 14px;
+  width: 276px;
+  height: 268px;
+  margin-bottom: 16px;
+  position: relative;
+}
+.carModelDescription {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  width: 247px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .model {
   color: #3470ff;
@@ -16,19 +33,78 @@
 .address {
   display: flex;
   align-items: center;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33333;
+  color: #8d929a;
+}
+.type {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33333;
+  color: #8d929a;
+  margin-bottom: 32px;
+}
+.button {
+  border-radius: 12px;
+  padding: 12px;
+  width: 276px;
+  height: 44px;
+  background-color: #3470ff;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  color: white;
 }
 .address .part:last-child::after {
-  content: "|"; /* вертикальна рисочка */
-  color: #aaa; /* колір роздільника */
-  margin-right: 8px; /* відступи ліворуч і праворуч */
+  content: "";
+  display: inline-block;
+  width: 0px;
+  border: 1px solid #dadde1;
+  height: 16px;
+  margin-left: 8px;
+  height: 16px;
 }
 .address .part:not(:first-child)::before {
-  content: "|"; /* вертикальна рисочка */
-  color: #aaa; /* колір роздільника */
-  margin: 0 8px; /* відступи ліворуч і праворуч */
+  content: "";
+  display: inline-block;
+  width: 0px;
+  border: 1px solid #dadde1;
+  height: 16px;
+  margin: 0 8px;
+  height: 16px;
 }
 .type .part:not(:last-child)::after {
-  content: "|"; /* вертикальна рисочка */
-  color: #aaa; /* колір роздільника */
+  content: "";
+  display: inline-block;
+  width: 0px;
+  border: 1px solid #dadde1;
+  height: 16px;
   margin: 0 8px;
+  height: 16px;
+}
+.buttonFavorit {
+  position: absolute;
+  z-index: 3;
+  top: 16;
+  right: 16;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.heart {
+  width: 16;
+  height: 16;
+  color: white;
+}
+.activeHeart {
+  width: 16;
+  height: 16;
+  color: #3470ff;
+  stroke: #3470ff;
 }

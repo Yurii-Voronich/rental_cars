@@ -3,14 +3,15 @@ import { Field, Form, Formik } from "formik";
 import CustomBrandSelector from "../CustomBrandSelector/CustomBrandSelector";
 import CustomPriceSelector from "../CustomPriceSelector/CustomPriceSelector";
 import css from "./FiltersField.module.css";
+import { useFiltersStore } from "@/store/filterStore";
 interface FiltersFieldProps {
   brands: string[];
-  onSubmit: (filters: {
-    brand: string;
-    rentalPrice: string;
-    minMileage: string;
-    maxMileage: string;
-  }) => void;
+  // onSubmit: (filters: {
+  //   brand: string;
+  //   rentalPrice: string;
+  //   minMileage: string;
+  //   maxMileage: string;
+  // }) => void;
 }
 interface InitialValues {
   brand: string;
@@ -18,7 +19,9 @@ interface InitialValues {
   minMileage: string;
   maxMileage: string;
 }
-const FiltersField = ({ brands, onSubmit }: FiltersFieldProps) => {
+const FiltersField = ({ brands }: FiltersFieldProps) => {
+  const { setFilters, clearFilters } = useFiltersStore();
+
   const initialValues = {
     brand: "",
     rentalPrice: "",
@@ -27,11 +30,18 @@ const FiltersField = ({ brands, onSubmit }: FiltersFieldProps) => {
   };
 
   const handleSubmit = (values: InitialValues) => {
-    onSubmit(values);
+    const hasValue = Object.values(values).some((v) => v && v.trim() !== "");
+    if (!hasValue) return;
+    clearFilters();
+    setFilters(values);
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      enableReinitialize
+    >
       <Form className={css.form}>
         <div className={css.field}>
           <label htmlFor="brand" className={css.label}>

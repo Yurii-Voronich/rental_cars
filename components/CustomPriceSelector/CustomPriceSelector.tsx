@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useField } from "formik";
 import css from "./CustomPriceSelector.module.css";
-
+import { IoChevronDownSharp, IoChevronUpSharp } from "react-icons/io5";
 interface CustomBrandSelectorProps {
   name: string;
   placeholder?: string;
@@ -26,7 +26,13 @@ const CustomPriceSelector = ({
     <div className={css.container}>
       <button type="button" className={css.trigger} onClick={toggleDropdown}>
         {field.value || placeholder}
-        <span className={css.arrow}>{isOpen ? "▲" : "▼"}</span>
+        <span className={css.arrow}>
+          {isOpen ? (
+            <IoChevronDownSharp className={css.chevron} />
+          ) : (
+            <IoChevronUpSharp className={css.chevron} />
+          )}
+        </span>
       </button>
 
       {isOpen && (
