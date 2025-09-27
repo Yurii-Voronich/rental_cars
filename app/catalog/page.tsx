@@ -32,7 +32,7 @@ const CatalogPage = () => {
     if (currentPage === 1) {
       setCars(data.cars);
     } else {
-      addCars(data.cars);
+      addCars(data.cars.filter((car) => !allCars.some((c) => c.id === car.id)));
     }
   }, [data, currentPage, setCars, addCars]);
 
@@ -40,6 +40,7 @@ const CatalogPage = () => {
     setCurrentPage(1);
     clearCars();
   }, [filters, clearCars]);
+
   return (
     <div className={css.container}>
       {brands.data && <FiltersField brands={brands.data} />}

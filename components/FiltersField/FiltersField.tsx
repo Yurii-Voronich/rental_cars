@@ -1,24 +1,22 @@
 "use client";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import CustomBrandSelector from "../CustomBrandSelector/CustomBrandSelector";
 import CustomPriceSelector from "../CustomPriceSelector/CustomPriceSelector";
 import css from "./FiltersField.module.css";
 import { useFiltersStore } from "@/store/filterStore";
+import NumberFormatField from "../NumberField/NumberFeild";
+
 interface FiltersFieldProps {
   brands: string[];
-  // onSubmit: (filters: {
-  //   brand: string;
-  //   rentalPrice: string;
-  //   minMileage: string;
-  //   maxMileage: string;
-  // }) => void;
 }
+
 interface InitialValues {
   brand: string;
   rentalPrice: string;
   minMileage: string;
   maxMileage: string;
 }
+
 const FiltersField = ({ brands }: FiltersFieldProps) => {
   const { setFilters, clearFilters } = useFiltersStore();
 
@@ -45,38 +43,42 @@ const FiltersField = ({ brands }: FiltersFieldProps) => {
       <Form className={css.form}>
         <div className={css.field}>
           <label htmlFor="brand" className={css.label}>
-            {"Car brand"}
+            Car brand
           </label>
-
           <CustomBrandSelector
             name="brand"
             brands={brands}
             placeholder="Choose brand"
           />
         </div>
+
         <div className={css.field}>
           <label htmlFor="rentalPrice" className={css.label}>
-            {"Price/ 1 hour"}
+            Price/ 1 hour
           </label>
           <CustomPriceSelector name="rentalPrice" placeholder="Choose price" />
         </div>
+
         <div className={css.field}>
           <label htmlFor="minMileage" className={css.label}>
-            {"Сar mileage / km"}
+            Сar mileage / km
           </label>
-          <div className={css.MilesFieldsWrapper}>
-            <Field
-              id="from"
-              name="minMileage"
-              placeholder="From"
-              className={css.LeftMilesField}
-            />
-            <Field
-              id="to"
-              name="maxMileage"
-              placeholder="To"
-              className={css.RightMilesField}
-            />
+          <div className={css.milesFieldWrapper}>
+            <div className={css.inputWrapper}>
+              <span className={css.prefix}>From</span>
+              <NumberFormatField
+                name="minMileage"
+                className={`${css.LeftMilesField} ${css.withPrefix}`}
+              />
+            </div>
+
+            <div className={css.inputWrapper}>
+              <span className={css.prefix}>To</span>
+              <NumberFormatField
+                name="maxMileage"
+                className={`${css.RightMilesField} ${css.withPrefix}`}
+              />
+            </div>
           </div>
         </div>
 

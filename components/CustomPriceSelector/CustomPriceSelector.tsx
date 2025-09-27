@@ -3,29 +3,36 @@ import { useState } from "react";
 import { useField } from "formik";
 import css from "./CustomPriceSelector.module.css";
 import { IoChevronDownSharp, IoChevronUpSharp } from "react-icons/io5";
-interface CustomBrandSelectorProps {
+
+interface CustomPriceSelectorProps {
   name: string;
   placeholder?: string;
 }
 
 const CustomPriceSelector = ({
   name,
-  placeholder = "Select brand",
-}: CustomBrandSelectorProps) => {
+  placeholder = "Select price",
+}: CustomPriceSelectorProps) => {
   const [field, , helpers] = useField(name);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
-  const handleSelect = (brand: string) => {
-    helpers.setValue(brand);
+  const handleSelect = (price: string) => {
+    helpers.setValue(price); // Formik зберігає чисте число
     setIsOpen(false);
   };
-  const price = ["30", "40", "50", "60", "70", "80"];
+
+  const priceOptions = ["30", "40", "50", "60", "70", "80"];
+
   return (
     <div className={css.container}>
-      <button type="button" className={css.trigger} onClick={toggleDropdown}>
-        {field.value || placeholder}
+      <button
+        type="button"
+        className={`${css.trigger} ${field.value ? css.hasValue : ""}`}
+        onClick={toggleDropdown}
+      >
+        {field.value ? `To $${field.value}` : placeholder}
         <span className={css.arrow}>
           {isOpen ? (
             <IoChevronDownSharp className={css.chevron} />
@@ -37,7 +44,7 @@ const CustomPriceSelector = ({
 
       {isOpen && (
         <ul className={css.list}>
-          {price.map((price) => (
+          {priceOptions.map((price) => (
             <li
               key={price}
               className={`${css.listItem} ${

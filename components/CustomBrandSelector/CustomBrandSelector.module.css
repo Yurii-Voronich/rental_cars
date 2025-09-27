@@ -60,8 +60,7 @@
 }
 
 .active {
-  background: #e6f0ff;
-  font-weight: 600;
+  color: black;
 }
 .chevron {
   width: 16px;

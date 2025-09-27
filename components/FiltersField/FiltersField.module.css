@@ -22,8 +22,8 @@
 }
 .milesFieldWrapper {
   display: flex;
-  gap: 8px;
-  flex-direction: column;
+  outline: none;
+  box-shadow: none;
 }
 .LeftMilesField {
   border-left: none;
@@ -55,4 +55,51 @@
   border: none;
   background-color: #3470ff;
   color: white;
+}
+.inputWrapper {
+  position: relative;
+  width: fit-content;
+}
+
+.prefix {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8d929a;
+  font-size: 14px;
+  pointer-events: none;
+  padding-left: 24px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: black;
+}
+
+.LeftMilesField.withPrefix {
+  padding-left: 74px;
+}
+.RightMilesField.withPrefix {
+  padding-left: 54px;
+}
+.LeftMilesField,
+.RightMilesField {
+  background-color: #f7f7f7;
+  outline: none;
+  box-shadow: none;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: black;
+}
+.LeftMilesField:focus,
+.RightMilesField:focus {
+  background-color: #f7f7f7;
+}
+
+.LeftMilesField:valid,
+.RightMilesField:valid,
+.LeftMilesField:invalid,
+.RightMilesField:invalid {
+  background-color: #f7f7f7;
 }
