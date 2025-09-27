@@ -6,6 +6,7 @@ import Header from "@/components/Header/Header";
 import "modern-normalize";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Rental Car",
@@ -49,6 +50,7 @@ export default function RootLayout({
     <html lang="en">
       <TanStackProvider>
         <body className={` ${manrope.variable} ${inter.variable}`}>
+          <Toaster position="top-right" />
           <Header />
           {children}
         </body>

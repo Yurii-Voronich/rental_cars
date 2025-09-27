@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { CarsResponse, fetchBrands, fetchCars } from "@/lib/api";
 import FiltersField from "@/components/FiltersField/FiltersField";
 import CarsGrid from "@/components/CarsGrid/CarsGrid";
@@ -11,20 +11,22 @@ import { useCarStore } from "@/store/carStore";
 
 const CatalogPage = () => {
   const limit = "12";
-  const { allCars, addCars, setCars, clearCars } = useCarStore();
+  const { allCars, setCars } = useCarStore();
   const { filters } = useFiltersStore();
   const [currentPage, setCurrentPage] = useState(1);
 
-  const brands = useQuery({
+  const brandsQuery = useQuery({
     queryKey: ["brands"],
     queryFn: fetchBrands,
   });
 
-  const { data, isLoading } = useQuery<CarsResponse, Error>({
-    queryKey: ["cars", filters, currentPage],
+  const carsQuery = useQuery<CarsResponse, Error>({
+    queryKey: ["cars", filters, currentPage] as const,
     queryFn: () => fetchCars({ ...filters, page: currentPage, limit }),
-    placeholderData: keepPreviousData,
+    staleTime: 5000,
   });
+
+  const { data, isLoading } = carsQuery;
 
   useEffect(() => {
     if (!data) return;
@@ -32,22 +34,31 @@ const CatalogPage = () => {
     if (currentPage === 1) {
       setCars(data.cars);
     } else {
-      addCars(data.cars.filter((car) => !allCars.some((c) => c.id === car.id)));
+      setCars(data.cars, true);
     }
-  }, [data, currentPage, setCars, addCars]);
+  }, [data, currentPage, setCars]);
 
   useEffect(() => {
     setCurrentPage(1);
-    clearCars();
-  }, [filters, clearCars]);
+  }, [filters]);
+
+  const isEmpty = !isLoading && allCars.length === 0 && currentPage === 1;
 
   return (
     <div className={css.container}>
-      {brands.data && <FiltersField brands={brands.data} />}
+      {isLoading && allCars.length === 0 && (
+        <p className={css.text}>Loading...</p>
+      )}
+
+      {brandsQuery.data && <FiltersField brands={brandsQuery.data} />}
 
       {allCars.length > 0 && <CarsGrid data={allCars} />}
 
-      {data && data.page < data.totalPages && (
+      {isEmpty && (
+        <p className={css.text}>Sorry, no cars found by your request</p>
+      )}
+
+      {allCars.length > 0 && data && currentPage < data.totalPages && (
         <button
           className={css.showMoreButton}
           onClick={() => setCurrentPage((prev) => prev + 1)}

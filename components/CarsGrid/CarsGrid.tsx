@@ -64,7 +64,7 @@ const CarsGrid = ({ data }: CarsGridProps) => {
             </div>
 
             <Link href={`catalog/${car.id}`} className={css.button}>
-              learn more
+              Read more
             </Link>
           </li>
         );

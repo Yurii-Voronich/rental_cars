@@ -1,0 +1,91 @@
+.wrapper {
+  max-width: 640px;
+  margin: 0 auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #dadde1;
+  border-radius: 10px;
+  padding: 32px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #8d929a;
+  margin-bottom: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputField {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  height: 48px;
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  background: #f9f9f9;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.inputField:focus {
+  border: 1px solid #3b82f6; /* синій */
+  background: #fff;
+}
+
+.textarea {
+  resize: none;
+  border-radius: 12px;
+  padding: 12px 20px 56px;
+  width: 576px;
+  height: 88px;
+}
+
+.errorMessage {
+  font-size: 12px;
+  color: #ef4444; /* червоний */
+  margin-top: 4px;
+}
+
+.submitBtn {
+  background: #3470ff;
+  color: #fff;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  border-radius: 12px;
+  padding: 12px 51px;
+  width: 156px;
+  height: 44px;
+  margin: 0 auto;
+  margin-top: 8px;
+}
+
+/* .submitBtn:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+} */
+
+.submitBtn:hover:not(:disabled) {
+  background: #2563eb;
+}

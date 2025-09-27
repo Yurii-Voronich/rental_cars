@@ -41,3 +41,7 @@ export async function fetchCars(params?: Params): Promise<CarsResponse> {
   const resp = await axios.get<CarsResponse>(`/cars`, { params });
   return resp.data;
 }
+export async function fetchCarById(id: string): Promise<Car> {
+  const resp = await axios.get<Car>(`/cars/${id}`);
+  return resp.data;
+}
