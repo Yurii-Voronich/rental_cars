@@ -37,6 +37,7 @@ const CarsGrid = ({ data }: CarsGridProps) => {
               width={276}
               height={268}
               className={css.image}
+              priority={idx < 3}
             />
 
             <div className={css.carModelDescription}>

@@ -59,6 +59,10 @@
   text-align: center;
   color: white;
 }
+.button:hover {
+  background-color: #0b44cd;
+}
+
 .address .part:last-child::after {
   content: "";
   display: inline-block;

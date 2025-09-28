@@ -7,10 +7,10 @@ interface CarModelProps {
 const CarModel = ({ car }: CarModelProps) => {
   return (
     <section className={css.section}>
-      <h2 className={css.subtitle}>
+      <h1 className={css.subtitle}>
         {`${car.brand}
       ${car.model},${car.year}`}
-      </h2>
+      </h1>
       <span className={css.id}>{`Id:${car.id.slice(0, 4)} `}</span>
 
       <p className={css.location}>

@@ -39,3 +39,6 @@
   display: block;
   text-align: center;
 }
+.button:hover {
+  background-color: #0b44cd;
+}

@@ -10,6 +10,7 @@ export default function Home() {
         width={1440}
         height={700}
         className={css.image}
+        priority
       />
 
       <div className={css.textBlock}>
