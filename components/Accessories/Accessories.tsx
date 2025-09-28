@@ -6,7 +6,7 @@ interface AccessoriesProps {
 const Accessories = ({ car }: AccessoriesProps) => {
   return (
     <section>
-      <h2 className={css.subtitle}>RentalConditions</h2>
+      <h2 className={css.subtitle}>Accessories and functionalities:</h2>
       <ul className={css.list}>
         {car.accessories.map((acc, idx) => (
           <li key={idx} className={css.item}>
@@ -14,6 +14,14 @@ const Accessories = ({ car }: AccessoriesProps) => {
               <use href="/sprite.svg#check-circle" />
             </svg>
             <span className={css.condition}>{acc}</span>
+          </li>
+        ))}
+        {car.functionalities.map((func, idx) => (
+          <li key={`func-${idx}`} className={css.item}>
+            <svg className={css.icon} width={16} height={16}>
+              <use href="/sprite.svg#check-circle" />
+            </svg>
+            <span className={css.condition}>{func}</span>
           </li>
         ))}
       </ul>
