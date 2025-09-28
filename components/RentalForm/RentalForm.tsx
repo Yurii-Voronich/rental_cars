@@ -1,3 +1,4 @@
+"use client";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import css from "./RentalForm.module.css";
