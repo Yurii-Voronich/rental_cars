@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useField } from "formik";
 import css from "./CustomBrandSelector.module.css";
 import { IoChevronDownSharp, IoChevronUpSharp } from "react-icons/io5";
+
 interface CustomBrandSelectorProps {
   name: string;
   brands: string[];
@@ -38,19 +39,23 @@ const CustomBrandSelector = ({
       </button>
 
       {isOpen && (
-        <ul className={css.list}>
-          {brands.map((brand) => (
-            <li
-              key={brand}
-              className={`${css.listItem} ${
-                field.value === brand ? css.active : ""
-              }`}
-              onClick={() => handleSelect(brand)}
-            >
-              {brand}
-            </li>
-          ))}
-        </ul>
+        <div className={css.listWrapper} role="listbox">
+          <ul className={css.listInner}>
+            {brands.map((brand) => (
+              <li
+                key={brand}
+                className={`${css.listItem} ${
+                  field.value === brand ? css.active : ""
+                }`}
+                onClick={() => handleSelect(brand)}
+                role="option"
+                aria-selected={field.value === brand}
+              >
+                {brand}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );

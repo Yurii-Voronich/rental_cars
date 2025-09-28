@@ -19,7 +19,7 @@ const CustomPriceSelector = ({
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   const handleSelect = (price: string) => {
-    helpers.setValue(price); // Formik зберігає чисте число
+    helpers.setValue(price);
     setIsOpen(false);
   };
 
@@ -43,19 +43,21 @@ const CustomPriceSelector = ({
       </button>
 
       {isOpen && (
-        <ul className={css.list}>
-          {priceOptions.map((price) => (
-            <li
-              key={price}
-              className={`${css.listItem} ${
-                field.value === price ? css.active : ""
-              }`}
-              onClick={() => handleSelect(price)}
-            >
-              {price}
-            </li>
-          ))}
-        </ul>
+        <div className={css.listWrapper}>
+          <ul className={css.listInner}>
+            {priceOptions.map((price) => (
+              <li
+                key={price}
+                className={`${css.listItem} ${
+                  field.value === price ? css.active : ""
+                }`}
+                onClick={() => handleSelect(price)}
+              >
+                {price}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );
